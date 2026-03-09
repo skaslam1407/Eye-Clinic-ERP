@@ -1,0 +1,8 @@
+<div class="row g-3">
+    <div class="col-md-6"><label class="form-label">Patient</label><select name="patient_id" class="form-select" required><option value="">Select</option>@foreach($patients as $patient)<option value="{{ $patient->id }}" @selected(old('patient_id', $order->patient_id ?? '') == $patient->id)>{{ $patient->name }}</option>@endforeach</select></div>
+    <div class="col-md-6"><label class="form-label">Eyeglass Type</label><input name="eyeglass_type" value="{{ old('eyeglass_type', $order->eyeglass_type ?? '') }}" class="form-control" required></div>
+    <div class="col-md-4"><label class="form-label">Lens Power</label><input name="lens_power" value="{{ old('lens_power', $order->lens_power ?? '') }}" class="form-control" required></div>
+    <div class="col-md-4"><label class="form-label">Order Date</label><input type="date" name="order_date" value="{{ old('order_date', isset($order) ? $order->order_date?->format('Y-m-d') : now()->toDateString()) }}" class="form-control" required></div>
+    <div class="col-md-4"><label class="form-label">Delivery Date</label><input type="date" name="delivery_date" value="{{ old('delivery_date', isset($order) && $order->delivery_date ? $order->delivery_date->format('Y-m-d') : '') }}" class="form-control"></div>
+    <div class="col-md-4"><label class="form-label">Status</label><select name="delivery_status" class="form-select" required>@foreach(['Pending','Delivered'] as $status)<option value="{{ $status }}" @selected(old('delivery_status', $order->delivery_status ?? 'Pending') === $status)>{{ $status }}</option>@endforeach</select></div>
+</div>
