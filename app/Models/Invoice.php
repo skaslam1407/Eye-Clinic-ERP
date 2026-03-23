@@ -17,6 +17,7 @@ class Invoice extends Model
         'total_amount',
         'payment_status',
         'invoice_date',
+        'logo_path',
     ];
 
     protected function casts(): array

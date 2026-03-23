@@ -14,6 +14,9 @@ class NotificationLog extends Model
         'recipient',
         'message',
         'sent_at',
+        'status',
+        'provider_id',
+        'error',
     ];
 
     protected function casts(): array

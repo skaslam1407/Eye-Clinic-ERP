@@ -25,18 +25,11 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'patient_id' => ['required', 'exists:patients,id'],
-            'doctor_id' => ['nullable', 'exists:users,id'],
-            'eye_test_charges' => ['required', 'numeric', 'min:0'],
-            'eyeglass_charges' => ['required', 'numeric', 'min:0'],
-            'medicine_charges' => ['required', 'numeric', 'min:0'],
-            'payment_status' => ['required', 'in:Paid,Pending'],
-            'invoice_date' => ['required', 'date'],
-        ]);
+        $validated = $this->validateInvoice($request);
 
         $validated['total_amount'] = $validated['eye_test_charges'] + $validated['eyeglass_charges'] + $validated['medicine_charges'];
         $validated['invoice_number'] = $this->nextInvoiceNumber();
+        $validated['logo_path'] = $this->storeLogoIfPresent($request);
 
         $invoice = Invoice::create($validated);
 
@@ -60,16 +53,11 @@ class InvoiceController extends Controller
 
     public function update(Request $request, Invoice $invoice)
     {
-        $validated = $request->validate([
-            'patient_id' => ['required', 'exists:patients,id'],
-            'doctor_id' => ['nullable', 'exists:users,id'],
-            'eye_test_charges' => ['required', 'numeric', 'min:0'],
-            'eyeglass_charges' => ['required', 'numeric', 'min:0'],
-            'medicine_charges' => ['required', 'numeric', 'min:0'],
-            'payment_status' => ['required', 'in:Paid,Pending'],
-            'invoice_date' => ['required', 'date'],
-        ]);
+        $validated = $this->validateInvoice($request, $invoice->id);
         $validated['total_amount'] = $validated['eye_test_charges'] + $validated['eyeglass_charges'] + $validated['medicine_charges'];
+        if ($logo = $this->storeLogoIfPresent($request)) {
+            $validated['logo_path'] = $logo;
+        }
 
         $invoice->update($validated);
         return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
@@ -101,5 +89,28 @@ class InvoiceController extends Controller
     {
         $lastId = (int) Invoice::max('id') + 1;
         return 'INV-' . now()->format('Y') . '-' . str_pad((string) $lastId, 5, '0', STR_PAD_LEFT);
+    }
+
+    private function validateInvoice(Request $request, ?int $invoiceId = null): array
+    {
+        return $request->validate([
+            'patient_id' => ['required', 'exists:patients,id'],
+            'doctor_id' => ['nullable', 'exists:users,id'],
+            'eye_test_charges' => ['required', 'numeric', 'min:0'],
+            'eyeglass_charges' => ['required', 'numeric', 'min:0'],
+            'medicine_charges' => ['required', 'numeric', 'min:0'],
+            'payment_status' => ['required', 'in:Paid,Pending'],
+            'invoice_date' => ['required', 'date'],
+            'logo' => ['nullable', 'image', 'max:2048'],
+        ]);
+    }
+
+    private function storeLogoIfPresent(Request $request): ?string
+    {
+        if ($request->hasFile('logo')) {
+            return $request->file('logo')->store('logos', 'public');
+        }
+
+        return null;
     }
 }

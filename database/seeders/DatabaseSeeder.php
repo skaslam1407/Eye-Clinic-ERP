@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
     {
         $roles = collect([
             ['name' => 'Super Admin', 'permissions' => ['*']],
-            ['name' => 'Admin', 'permissions' => ['patients', 'appointments', 'invoices', 'reports', 'users', 'notifications']],
-            ['name' => 'Doctor', 'permissions' => ['patients', 'appointments', 'checkups']],
-            ['name' => 'Staff', 'permissions' => ['patients', 'deliveries', 'invoices']],
-            ['name' => 'Receptionist', 'permissions' => ['patients', 'appointments']],
+            ['name' => 'Admin', 'permissions' => ['dashboard', 'patients', 'appointments', 'invoices', 'reports', 'users', 'notifications', 'eyeglass-orders', 'branding', 'permissions', 'checkups']],
+            ['name' => 'Doctor', 'permissions' => ['dashboard', 'patients', 'appointments', 'checkups']],
+            ['name' => 'Staff', 'permissions' => ['dashboard', 'patients', 'eyeglass-orders', 'invoices']],
+            ['name' => 'Receptionist', 'permissions' => ['dashboard', 'patients', 'appointments']],
         ])->mapWithKeys(fn ($role) => [$role['name'] => Role::updateOrCreate(['name' => $role['name']], $role)]);
 
         $superAdmin = User::updateOrCreate([

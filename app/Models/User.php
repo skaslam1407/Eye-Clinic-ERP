@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return optional($this->role)->name === $role;
     }
+
+    public function hasPermission(string $permission): bool
+    {
+        return (bool) optional($this->role)->hasPermission($permission);
+    }
 }

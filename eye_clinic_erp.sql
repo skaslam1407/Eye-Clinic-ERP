@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2026 at 12:22 PM
+-- Generation Time: Mar 23, 2026 at 02:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `appointments`
 --
 
+DROP TABLE IF EXISTS `appointments`;
 CREATE TABLE `appointments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
@@ -71,11 +72,19 @@ INSERT INTO `appointments` (`id`, `patient_id`, `doctor_id`, `appointment_date`,
 -- Table structure for table `cache`
 --
 
+DROP TABLE IF EXISTS `cache`;
 CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel-cache-branding_settings', 'O:18:\"App\\Models\\Setting\":33:{s:13:\"\0*\0connection\";s:5:\"mysql\";s:8:\"\0*\0table\";s:8:\"settings\";s:13:\"\0*\0primaryKey\";s:2:\"id\";s:10:\"\0*\0keyType\";s:3:\"int\";s:12:\"incrementing\";b:1;s:7:\"\0*\0with\";a:0:{}s:12:\"\0*\0withCount\";a:0:{}s:19:\"preventsLazyLoading\";b:0;s:10:\"\0*\0perPage\";i:15;s:6:\"exists\";b:1;s:18:\"wasRecentlyCreated\";b:0;s:28:\"\0*\0escapeWhenCastingToString\";b:0;s:13:\"\0*\0attributes\";a:6:{s:2:\"id\";i:1;s:11:\"brand_color\";s:7:\"#110de7\";s:11:\"font_family\";s:7:\"Manrope\";s:9:\"logo_path\";s:53:\"branding/jo8EcrAxtGSR7kBZWShO1viEvrZzM0mxpv9ilWW9.jpg\";s:10:\"created_at\";s:19:\"2026-03-23 11:43:23\";s:10:\"updated_at\";s:19:\"2026-03-23 11:46:34\";}s:11:\"\0*\0original\";a:6:{s:2:\"id\";i:1;s:11:\"brand_color\";s:7:\"#110de7\";s:11:\"font_family\";s:7:\"Manrope\";s:9:\"logo_path\";s:53:\"branding/jo8EcrAxtGSR7kBZWShO1viEvrZzM0mxpv9ilWW9.jpg\";s:10:\"created_at\";s:19:\"2026-03-23 11:43:23\";s:10:\"updated_at\";s:19:\"2026-03-23 11:46:34\";}s:10:\"\0*\0changes\";a:0:{}s:11:\"\0*\0previous\";a:0:{}s:8:\"\0*\0casts\";a:0:{}s:17:\"\0*\0classCastCache\";a:0:{}s:21:\"\0*\0attributeCastCache\";a:0:{}s:13:\"\0*\0dateFormat\";N;s:10:\"\0*\0appends\";a:0:{}s:19:\"\0*\0dispatchesEvents\";a:0:{}s:14:\"\0*\0observables\";a:0:{}s:12:\"\0*\0relations\";a:0:{}s:10:\"\0*\0touches\";a:0:{}s:27:\"\0*\0relationAutoloadCallback\";N;s:26:\"\0*\0relationAutoloadContext\";N;s:10:\"timestamps\";b:1;s:13:\"usesUniqueIds\";b:0;s:9:\"\0*\0hidden\";a:0:{}s:10:\"\0*\0visible\";a:0:{}s:11:\"\0*\0fillable\";a:3:{i:0;s:11:\"brand_color\";i:1;s:11:\"font_family\";i:2;s:9:\"logo_path\";}s:10:\"\0*\0guarded\";a:1:{i:0;s:1:\"*\";}}', 2089626395);
 
 -- --------------------------------------------------------
 
@@ -83,6 +92,7 @@ CREATE TABLE `cache` (
 -- Table structure for table `cache_locks`
 --
 
+DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -95,6 +105,7 @@ CREATE TABLE `cache_locks` (
 -- Table structure for table `eyeglass_orders`
 --
 
+DROP TABLE IF EXISTS `eyeglass_orders`;
 CREATE TABLE `eyeglass_orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
@@ -139,6 +150,7 @@ INSERT INTO `eyeglass_orders` (`id`, `patient_id`, `eyeglass_type`, `lens_power`
 -- Table structure for table `eye_checkups`
 --
 
+DROP TABLE IF EXISTS `eye_checkups`;
 CREATE TABLE `eye_checkups` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
@@ -191,6 +203,7 @@ INSERT INTO `eye_checkups` (`id`, `patient_id`, `doctor_id`, `vision_test`, `rig
 -- Table structure for table `invoices`
 --
 
+DROP TABLE IF EXISTS `invoices`;
 CREATE TABLE `invoices` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `invoice_number` varchar(255) NOT NULL,
@@ -238,6 +251,7 @@ INSERT INTO `invoices` (`id`, `invoice_number`, `patient_id`, `doctor_id`, `eye_
 -- Table structure for table `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
@@ -259,7 +273,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2026_03_09_091528_create_eyeglass_orders_table', 1),
 (9, '2026_03_09_091529_create_eye_checkups_table', 1),
 (10, '2026_03_09_091530_create_notification_logs_table', 1),
-(11, '2026_03_09_093657_add_foreign_key_to_users_role_id', 1);
+(11, '2026_03_09_093657_add_foreign_key_to_users_role_id', 1),
+(12, '2026_03_23_000001_create_settings_table', 2),
+(13, '2026_03_23_000002_create_password_reset_tokens_table', 3),
+(14, '2026_03_23_000003_add_status_columns_to_notification_logs_table', 4);
 
 -- --------------------------------------------------------
 
@@ -267,6 +284,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `notification_logs`
 --
 
+DROP TABLE IF EXISTS `notification_logs`;
 CREATE TABLE `notification_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `patient_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -275,9 +293,19 @@ CREATE TABLE `notification_logs` (
   `recipient` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `sent_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` varchar(255) DEFAULT NULL,
+  `provider_id` varchar(255) DEFAULT NULL,
+  `error` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notification_logs`
+--
+
+INSERT INTO `notification_logs` (`id`, `patient_id`, `channel`, `type`, `recipient`, `message`, `sent_at`, `status`, `provider_id`, `error`, `created_at`, `updated_at`) VALUES
+(5, 10, 'SMS', 'Eye Checkup Reminder', '9832623749', 'hhhhhhhhhhhhhhhhh', '2026-03-23 13:31:40', 'Sent', NULL, NULL, '2026-03-23 08:01:38', '2026-03-23 08:01:40');
 
 -- --------------------------------------------------------
 
@@ -285,11 +313,19 @@ CREATE TABLE `notification_logs` (
 -- Table structure for table `password_reset_tokens`
 --
 
+DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('aslam.ali@codeclouds.in', '$2y$12$JELnjdz2Clrp8A2PzNthV.bRVUJcZTfJAz9jsiN1/pMdpmBQSIPeq', '2026-03-23 07:20:11');
 
 -- --------------------------------------------------------
 
@@ -297,6 +333,7 @@ CREATE TABLE `password_reset_tokens` (
 -- Table structure for table `patients`
 --
 
+DROP TABLE IF EXISTS `patients`;
 CREATE TABLE `patients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `patient_code` varchar(255) NOT NULL,
@@ -344,6 +381,7 @@ INSERT INTO `patients` (`id`, `patient_code`, `name`, `age`, `gender`, `phone`, 
 -- Table structure for table `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -358,9 +396,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', '[\"*\"]', '2026-03-09 05:46:09', '2026-03-09 05:46:09'),
-(2, 'Admin', '[\"patients\",\"appointments\",\"invoices\",\"reports\",\"users\",\"notifications\"]', '2026-03-09 05:46:09', '2026-03-09 05:46:09'),
+(2, 'Admin', '[\"dashboard\",\"patients\",\"appointments\",\"invoices\",\"reports\",\"users\",\"notifications\"]', '2026-03-09 05:46:09', '2026-03-23 07:03:49'),
 (3, 'Doctor', '[\"patients\",\"appointments\",\"checkups\"]', '2026-03-09 05:46:09', '2026-03-09 05:46:09'),
-(4, 'Staff', '[\"patients\",\"deliveries\",\"invoices\"]', '2026-03-09 05:46:09', '2026-03-09 05:46:09'),
+(4, 'Staff', '[\"patients\",\"invoices\",\"eyeglass-orders\"]', '2026-03-09 05:46:09', '2026-03-23 07:13:53'),
 (5, 'Receptionist', '[\"patients\",\"appointments\"]', '2026-03-09 05:46:09', '2026-03-09 05:46:09');
 
 -- --------------------------------------------------------
@@ -369,6 +407,7 @@ INSERT INTO `roles` (`id`, `name`, `permissions`, `created_at`, `updated_at`) VA
 -- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -381,9 +420,33 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `brand_color` varchar(255) DEFAULT NULL,
+  `font_family` varchar(255) DEFAULT NULL,
+  `logo_path` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `brand_color`, `font_family`, `logo_path`, `created_at`, `updated_at`) VALUES
+(1, '#110de7', 'Manrope', 'branding/jo8EcrAxtGSR7kBZWShO1viEvrZzM0mxpv9ilWW9.jpg', '2026-03-23 06:13:23', '2026-03-23 06:16:34');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -404,7 +467,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `phone`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Super Admin', 'admin@eyeclinic.test', NULL, '$2y$12$zunooSYWMwX2ZeHUU6O5XecLYIos/I.1GJpd0FM.Va/hWYUGFmysu', '9999999999', NULL, '2026-03-09 05:46:10', '2026-03-09 05:46:10'),
 (2, 3, 'Dr. Rahul Sen', 'doctor@eyeclinic.test', NULL, '$2y$12$SuSVj0ATbTApWblekhKPMeqh2Bcwl0lCD8ArDOdjgyaTngGc0jLAG', '8888888888', NULL, '2026-03-09 05:46:10', '2026-03-09 05:46:10'),
-(3, 5, 'Reception User', 'reception@eyeclinic.test', NULL, '$2y$12$jA6xRUqXHdC9NopoHMFUdeIgtGBORP93KYYkJOdb6EuM8TVvoGlye', '7777777777', NULL, '2026-03-09 05:46:11', '2026-03-09 05:46:11');
+(3, 5, 'Reception User', 'reception@eyeclinic.test', NULL, '$2y$12$jA6xRUqXHdC9NopoHMFUdeIgtGBORP93KYYkJOdb6EuM8TVvoGlye', '7777777777', NULL, '2026-03-09 05:46:11', '2026-03-09 05:46:11'),
+(4, 4, 'Sekh Aslam Ali', 'aslam.ali@codeclouds.in', NULL, '$2y$12$KvMDEt8HinZ4QyWQ/lM2xuUOS0crLN0NhuRGiagQDvxXDbulF0DHq', '9832623749', NULL, '2026-03-23 06:45:06', '2026-03-23 07:21:53');
 
 --
 -- Indexes for dumped tables
@@ -498,6 +562,12 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -537,19 +607,19 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `notification_logs`
 --
 ALTER TABLE `notification_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -558,10 +628,16 @@ ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

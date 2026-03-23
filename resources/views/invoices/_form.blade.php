@@ -29,5 +29,15 @@
             @endforeach
         </select>
     </div>
+    <div class="col-md-6">
+        <label class="form-label">Invoice Logo (optional)</label>
+        <input type="file" name="logo" class="form-control" accept="image/*">
+        @if(!empty($invoice?->logo_path))
+            <div class="mt-2">
+                <small class="text-muted d-block">Current logo</small>
+                <img src="{{ asset('storage/'.$invoice->logo_path) }}" alt="Invoice logo" style="height:48px;width:auto;border-radius:8px;object-fit:contain;" />
+            </div>
+        @endif
+    </div>
     <div class="col-md-6"><label class="form-label">Invoice Date</label><input type="date" name="invoice_date" value="{{ old('invoice_date', isset($invoice) ? $invoice->invoice_date?->format('Y-m-d') : now()->toDateString()) }}" class="form-control" required></div>
 </div>
