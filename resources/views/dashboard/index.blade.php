@@ -70,11 +70,17 @@
                     <td>{{ $appointment->appointment_date?->format('Y-m-d') }}</td>
                     <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</td>
                     <td>
-                        <span class="badge rounded-pill @class([
-                            'text-bg-warning' => $appointment->status === 'Pending',
-                            'text-bg-success' => $appointment->status === 'Approved',
-                            'text-bg-secondary' => $appointment->status === 'Cancelled',
-                        ])">{{ $appointment->status }}</span>
+                        @php
+                            $status = $appointment->status;
+                            $pillClass = [
+                                'Pending' => 'bg-warning text-dark',
+                                'Approved' => 'bg-success text-white',
+                                'Cancelled' => 'bg-secondary text-white',
+                            ][$status] ?? 'bg-secondary text-white';
+                        @endphp
+                        <span class="badge rounded-pill {{ $pillClass }}" style="min-width:100px; display:inline-block; text-align:center; font-weight:700; letter-spacing:0.2px;">
+                            {{ $status }}
+                        </span>
                     </td>
                 </tr>
                 @empty
